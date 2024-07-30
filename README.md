@@ -46,7 +46,7 @@ Copy and paste this config to the bottom of the config file (change to fit your 
    force directory mode = 770
 ```
 
-This will make the Sambashare be in the /sambashare directory and the 770 means that the owner of the directory and files as well as their group be able to read, write, and execute within that directory (if you want to change permisions use the chmod calculator [here](https://chmod-calculator.com)
+This will make the Sambashare be in the /sambashare directory and the 770 means that the owner of the directory and files as well as their group be able to read, write, and execute within that directory (if you want to change permisions use the chmod calculator [here](https://chmod-calculator.com))
 
 Restart samba to apply the configuration that we just changed
 ```
