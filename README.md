@@ -22,4 +22,58 @@ Now click done and login to your admin account, click on the Hamburger Menu and 
 
 Go to ``Playback`` and change the Hardware acceleration from ``None `` to the intel one if your cpu/gpu is intel and vice versa for AMD, hit ``save`` at the bottem, if you have Nvidia then you will have to research what to do on your own because Nvidia is such a nightmare on Linux that I want to explode when I mess with it.
 
-More to come
+## Section 2: Setting up a Sambashare
+
+Samba uses the smb Protocol which is an industry standard for shared network folders and we will use that to setup a Sambashare which will give us easy access to our media on our Jellyfin server.
+
+Install Samba and enable it
+```
+sudo apt install samba samba-common-bin && sudo systemctl enable --now smb && sudo systemctl enable --now nmb
+```
+With Samba installed we need to create a config file for it so that it knows where everything will be and what permissions it has
+
+Edit the config file
+```
+sudo nano /etc/samba/smb.conf
+```
+Copy and paste this config to the bottom of the config file (change to fit your needs of course)
+```
+[Sambashare]
+   comment = Sambashare
+   path = /sambashare
+   writable = yes
+   force create mode = 770
+   force directory mode = 770
+```
+
+This will make the Sambashare be in the /sambashare directory and the 770 means that the owner of the directory and files as well as their group be able to read, write, and execute within that directory (if you want to change permisions use the chmod calculator [here](https://chmod-calculator.com)
+
+Restart samba to apply the configuration that we just changed
+```
+sudo systemctl restart smb && sudo systemctl restart nmb
+```
+Add your user to the Sambashare
+```
+sudo smbpasswd -a youruserhere
+```
+Test that the config is solid using the following command and if there are no errors then you are good to go!
+```
+smbclient -L localhost -U %
+```
+On your client device go into your file manager and type into the title bar ``\\192.168.your.ip`` and it will prompt you for your username and password that you have set on your system
+
+Now that you are in, you can manage your files and folders like you would on your client device but now you are managing your files and folders remotely from another device!
+
+## Section 3: Linking the two together
+
+Create a folder called media and this is where you will be storing everything that Jellyfin will access
+
+Create a Movie folder and Shows Folder for your movies and shows
+
+For our test media that we will be using in Jellyfin, we will download the movie ``Big Buck Bunny`` from [here](https://download.blender.org/peach/bigbuckbunny_movies/)
+
+We will put it in the Movies folder under the name ``Big Buck Bunny (2008)`` because that is the way that Jellyfin does formating
+
+Go into CasaOS and click on ``settings`` in the 3-dot menu, scroll down to the ``Volumes`` section and put ``/sambashare/media`` into the ``host`` section and ``/media`` into the ``Container`` section, after that is sorted out hit ``save``
+
+Back in Jellyfin more to come...
