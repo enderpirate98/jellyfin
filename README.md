@@ -76,4 +76,12 @@ We will put it in the Movies folder under the name ``Big Buck Bunny (2008)`` bec
 
 Go into CasaOS and click on ``settings`` in the 3-dot menu, scroll down to the ``Volumes`` section and put ``/sambashare/media`` into the ``host`` section and ``/media`` into the ``Container`` section, after that is sorted out hit ``save``
 
-Back in Jellyfin more to come...
+Back in Jellyfin go to ``Administration``>``Dashboard``>``Libraries`` and add your 2 media types, ``/media/movies`` for Movies and ``/media/shows`` for shows
+
+After you save go back to the home page and Big Buck Bunny should be there for you to watch and if it shows up the your config is correct!
+
+In the future when you want to add shows just create a folder with the name of the show and then in the folder create different folders for the different seasons, for example ``S01`` for season 1 and ``S02`` for season 2, within those season folders name the video file ``S01E01.mp4`` if that is the first episode of the first season of the show
+
+Congrats! You just basically made your own Netflix that you have total control over!
+
+This guide was written by enderpirate98 under the GPLv3 but you can freely modify this guide and use it how you like as long as you link back to this page.
